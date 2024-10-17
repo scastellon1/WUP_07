@@ -1,7 +1,7 @@
 ---
 title: "Initial Korean covid 19"
-author: "your name here"
-date: "todays date"
+author: "Sophia Castellon"
+date: "October 16 2024"
 output:
   html_document: default
   pdf_document: default
@@ -25,31 +25,59 @@ Some of the data was uncoded for sex - sex must be just male or female
 77 of the data entries were coded sex  as blank, so we omit these.
 state of a patient must be died or alive - we adjust that as well   
   
+# Methods
+
+$H_0$ There is no difference in dying depending on sex
+$H_A$ There is a difference in dying depending on sex  
+
+This data is from Korea in 2022
+
+Result~sex
+Cat~Cat helper file
+  
 # Your Question - Is dying independent of sex?
-
-
-
-
-
 
 ## Graphical results - use ggplot commands to do this  
 
+```{r}
+barchartGC(~result + Sex,data=kRdata)
+barchartGC(~result + Sex,data=kRdata, type="percent")
 
+```
 
-  
+This bar chart shows that more males died the women. 
 
-
-
-
-
-  
 ## Numerical results
 
+```{r}
+table1 <- xtabs(~result + Sex, data=kRdata)
+rowPerc(table1)
+colPerc(table1)
+```
+
+Among those who died there was 64% of men who died and 36% of women who died.  
 
 ## Inferential results 
 
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
 
-
+The Chi Squared test shows the p value is 0.001 and the Fisher Exact test  has a p value of 0.00009. The odds of the Fisher Exact test  states that men are 2.3 more acceptable of dying from covid 19. Since both p values are lower then 0.05 we reject the null hypothesis.  
 
 ## Conclusions
+
+Is dying independent of sex?
+
+$H_0$ There is no difference in dying depending on sex
+$H_A$ There is a difference in dying depending on sex  
+
+This data is from Korea in 2022
+
+We reject the null hypothesis for the following,  
+The bar chart shows that more males died then women.  
+The numerical data shows the chi squared p value is 0.001 and the Fisher Exact data shows the p value was 0.00009. The odd of the Fisher Exact test data shows that men are 2.3 more acceptable of dying from covid 19. Therefore since both p vales are lower then 0.05 we reject the null hypothesis.  
+
 
